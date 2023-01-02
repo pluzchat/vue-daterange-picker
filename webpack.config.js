@@ -7,8 +7,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'vueRangeDatePicker.js',
-    library: 'vueRangeDatePicker',
+    filename: 'dateRangePicker.js',
+    library: 'dateRangePicker',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },

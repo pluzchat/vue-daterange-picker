@@ -261,57 +261,20 @@
         height: 20px;
         flex-shrink: 0;
         position: relative;
+        display: flex;
+        gap: 12px;
         .year {
           display: flex;
           cursor: pointer;
-          position: absolute;
-          &.next-year {
-            right: 3px;
-            .icon {
-              &:nth-child(1) {
-                position: relative;
-                right: -1px;
-              }
-            }
-          }
-          &.prev-year {
-            left: 3px;
-            .icon {
-              &:nth-child(2) {
-                position: relative;
-                left: -1px;
-              }
-            }
-          }
         }
         .month {
           cursor: pointer;
-          position: absolute;
-          &.next-month {
-            right: 42px;
-          }
-          &.prev-month {
-            left: 42px;
-          }
-        }
-        .icon {
-          width: 7px;
-          height: 7px;
-          border-left: 1px solid #222;
-          border-bottom: 1px solid #222;
-          &.prev {
-            transform: rotate(45deg);
-          }
-          &.next {
-            transform: rotate(-135deg);
-          }
         }
       }
     }
     .weeks {
       display: flex;
       padding-bottom: 10px;
-      border-bottom: 1px dashed #e6e6e6;
       .week {
         display: inline-block;
         text-align: center;

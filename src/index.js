@@ -1,3 +1,3 @@
-import VueRangeDatePicker from './range-datepicker/Picker.vue'
+import VueDateRangePicker from './date-range-picker/Picker.vue'
 
-export default VueRangeDatePicker
+export default VueDateRangePicker

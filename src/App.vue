@@ -3,12 +3,12 @@
     <h1>{{ msg }}</h1>
     <div class="range-date-picker-container">
       <transition name="panelIn">
-        <vue-range-date-picker
+        <date-range-picker
           class="range-date-picker"
           language="vi"
           v-model="dates"
           v-show="show"
-          @closePicker="closePicker"></vue-range-date-picker>
+          @closePicker="closePicker"></date-range-picker>
       </transition>
       <input
         class="range-date-input"
@@ -20,17 +20,19 @@
 </template>
 
 <script>
-// import VueRangeDatePicker from '../dist/vueRangeDatePicker.js'
-import VueRangeDatePicker from './range-datepicker/Picker'
 import { parseTime } from './util.js'
+import DateRangePicker from "./date-range-picker/Picker";
 
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'vue-range-datepicker',
+      msg: 'vue-daterange-picker',
       show: false,
-      dates: {}
+      dates: {
+        start: Date.now(),
+        end: Date.now()
+      }
     }
   },
   methods: {
@@ -52,7 +54,7 @@ export default {
     }
   },
   components: {
-    VueRangeDatePicker
+    DateRangePicker,
   }
 }
 </script>

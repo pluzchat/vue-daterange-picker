@@ -40,7 +40,7 @@
 <script>
   import date from './Date'
   export default {
-    name: "VueRangeDatePicker",
+    name: "DateRangePicker",
     components: {
       date
     },
@@ -261,16 +261,6 @@
     .dates-wrapper {
       display: flex;
       position: relative;
-      &::before {
-        content: '';
-        display: block;
-        width: 1px;
-        height: 100%;
-        background-color: #e6e6e6;
-        position: absolute;
-        left: 320px;
-        top: 0px;
-      }
     }
   }
 </style>
