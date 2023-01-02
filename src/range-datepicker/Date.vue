@@ -6,17 +6,19 @@
           <div class="prev-year year"
             v-if="canPrevYear"
             @click="prevYear" >
-              <div class="icon prev"></div>
-              <div class="icon prev"></div>
+            <i class="ri-skip-back-mini-fill" style="font-size: 20px; color: #9E9E9E"></i>
           </div>
           <div class="prev-month month"
             v-if="canPrevMonth"
             @click="prevMonth">
-              <div class="icon prev"></div>
+            <i class="ri-rewind-mini-fill" style="font-size: 20px; color: #9E9E9E"></i>
           </div>
         </div>
         <div class="text" v-if="language === 'en'">
           {{monthsInEnglish[month]}} {{year}}
+        </div>
+        <div class="text" v-else-if="language === 'vi'">
+          Tháng {{month + 1}} - {{year}}
         </div>
         <div class="text" v-else>
           {{year}}年{{month + 1}}月
@@ -25,13 +27,12 @@
           <div class="next-month month"
             v-if="canNextMonth"
             @click="nextMonth">
-              <div class="icon next"></div>
+            <i class="ri-speed-mini-fill" style="font-size: 20px; color: #9E9E9E"></i>
           </div>
           <div class="next-year year"
             v-if="canNextYear"
             @click="nextYear" >
-              <div class="icon next"></div>
-              <div class="icon next"></div>
+            <i class="ri-skip-forward-mini-fill" style="font-size: 20px; color: #9E9E9E"></i>
           </div>
         </div>
       </div>
@@ -115,6 +116,7 @@
         'zh': ["日", "一", "二", "三", "四", "五", "六"],
         'jp': ["日", "月", "火", "水", "木", "金", "土"],
         'en': ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        'vi': ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
       },
       monthsInEnglish: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     }),
@@ -263,8 +265,6 @@
           display: flex;
           cursor: pointer;
           position: absolute;
-          top: 1px;
-          padding: 5px;
           &.next-year {
             right: 3px;
             .icon {
@@ -287,8 +287,6 @@
         .month {
           cursor: pointer;
           position: absolute;
-          top: 1px;
-          padding: 5px;
           &.next-month {
             right: 42px;
           }
@@ -317,6 +315,7 @@
       .week {
         display: inline-block;
         text-align: center;
+        font-weight: bold;
         width: 40px;
         color: #222;
         font-size: 14px;

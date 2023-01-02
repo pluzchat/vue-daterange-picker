@@ -5,7 +5,7 @@
       <transition name="panelIn">
         <vue-range-date-picker
           class="range-date-picker"
-          language="jp"
+          language="vi"
           v-model="dates"
           v-show="show"
           @closePicker="closePicker"></vue-range-date-picker>

@@ -257,7 +257,6 @@
     background-color: #fff;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
-    width: 638px;
     margin: 0 auto;
     .dates-wrapper {
       display: flex;
