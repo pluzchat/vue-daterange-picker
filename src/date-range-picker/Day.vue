@@ -27,12 +27,6 @@
       certainDays: {
         type: Array
       },
-      colorToday: {
-        type: String
-      },
-      colorActive: {
-        type: String
-      }
     },
     data: () => ({
       clicked: false

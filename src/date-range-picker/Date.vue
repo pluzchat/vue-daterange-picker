@@ -52,10 +52,7 @@
           :item="item"
           :canHover="canHover"
           :certainDays="certainDays"
-          :hoverDay="hoverDay"
-          :colorToday="colorToday"
-          :colorSelected="colorSelected"
-          :colorActive="colorActive"></day>
+          :hoverDay="hoverDay"></day>
       </div>
     </div>
   </div>
@@ -100,15 +97,6 @@
       language: {
         type: String
       },
-      colorToday: {
-        type: String,
-      },
-      colorSelected: {
-        type: String,
-      },
-      colorActive: {
-        type: String,
-      }
     },
     data: () => ({
       days: [],
