@@ -45,7 +45,7 @@
       </div>
 
       <div class="days">
-        <day 
+        <day
           v-for="item in days"
           :key="item.stamp"
           :item="item"
@@ -130,7 +130,7 @@
       isToday(date) {
         const today = new Date()
         return date.getFullYear() === today.getFullYear()
-          && date.getMonth() === today.getMonth() 
+          && date.getMonth() === today.getMonth()
           && date.getDate() === today.getDate()
       },
       getDayCountOfMonth(year, month) {
@@ -319,7 +319,7 @@
         text-align: center;
         width: 40px;
         color: #222;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }

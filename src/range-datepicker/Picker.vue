@@ -244,14 +244,23 @@
 </script>
 
 <style lang="scss" scoped>
+  @media (max-width: 540px) {
+    .picker {
+      .dates-wrapper {
+        flex-wrap: wrap;
+        max-width: 320px;
+      }
+    }
+  }
   .picker {
+    font-family: "Exo", sans-serif;
     background-color: #fff;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
-    width: 641px;
-    margin: 0px auto;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    width: 638px;
+    margin: 0 auto;
     .dates-wrapper {
       display: flex;
-      border-top: 1px solid #e6e6e6;
       position: relative;
       &::before {
         content: '';

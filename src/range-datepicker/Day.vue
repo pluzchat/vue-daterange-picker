@@ -159,7 +159,7 @@
     display: inline-block;
     width: 40px;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
     box-sizing: border-box;
     .wrapper {
       padding: 3px 0px;
