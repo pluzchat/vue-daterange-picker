@@ -1,12 +1,17 @@
 <template>
-  <div class="picker-container">
-    {{certainDays}}
+  <div class="picker-container" v-click-outside="closePicker">
     <div @click="showPicker">
       <slot name="input" :start="value.start" :end="value.end">
-        <div>{{ value.start }} - {{ value.end }}</div>
+        <div class="picker-input">
+          <span class="start-time">{{ startDate }}</span>
+          <i class="ri-arrow-right-fill" style="font-size: 16px; color: #9E9E9E"></i>
+          <span class="end-time">{{ endDate }}</span>
+          <div style="flex-grow: 1"></div>
+          <i class="ri-calendar-line" style="font-size: 20px; color: #9E9E9E"></i>
+        </div>
       </slot>
     </div>
-    <transition name="panelIn" v-click-outside="closePicker">
+    <transition name="panelIn">
       <div class="picker" v-show="show">
         <div class="dates-wrapper">
           <date
@@ -65,8 +70,21 @@ export default {
       default: "zh"
     },
   },
+  created() {
+    this.certainDays = this.initCertainDays()
+  },
+  mounted() {
+    this.leftYear = this.computedLeftYear()
+    this.leftMonth = this.computedLeftMonth()
+    this.rightYear = this.computedRightYear()
+    this.rightMonth = this.computedRightMonth()
+  },
   data() {
     return {
+      leftYear: null,
+      leftMonth: null,
+      rightYear: null,
+      rightMonth: null,
       certainDays: null,
       show: false,
     }
@@ -118,42 +136,16 @@ export default {
         return false
       }
     },
-    leftYear() {
-      if (this.certainDays.length > 0) {
-        return new Date(Math.min(...this.certainDays)).getFullYear()
-      }
-      return new Date().getFullYear()
-    },
-    leftMonth() {
-      if (this.certainDays.length > 0) {
-        return new Date(Math.min(...this.certainDays)).getMonth()
-      }
-      return new Date().getMonth()
-    },
-    rightYear() {
-      if (this.certainDays.length === 2) {
-        if (this.isSameYearMonth()) {
-          const leftDate = new Date(Math.min(...this.certainDays))
-          return leftDate.getMonth() === 11 ? leftDate.getFullYear() + 1 : leftDate.getFullYear()
-        }
-        return new Date(Math.max(...this.certainDays)).getFullYear()
-      }
-      return new Date().getMonth() === 11 ? new Date().getFullYear() + 1 : new Date().getFullYear()
-    },
-    rightMonth() {
-      if (this.certainDays.length === 2) {
-        if (this.isSameYearMonth()) {
-          const leftDate = new Date(Math.min(...this.certainDays))
-          return leftDate.getMonth() === 11 ? 0 : leftDate.getMonth() + 1
-        }
-        return new Date(Math.max(...this.certainDays)).getMonth()
-      }
-      return new Date().getMonth() === 11 ? 0 : new Date().getMonth() + 1
-    },
     hoverDay() {
       if (this.certainDays.length === 2 && (Math.min(...this.certainDays) < Math.max(...this.certainDays))) return this.formatDayToMidnight(this.value.end)
       return null
     },
+    startDate() {
+      return moment(this.value.start).format("DD/MM/YYYY")
+    },
+    endDate() {
+      return moment(this.value.end).format("DD/MM/YYYY")
+    }
   },
   methods: {
     closePicker() {
@@ -229,6 +221,38 @@ export default {
         this.rightMonth -= 1
       }
     },
+    computedLeftYear() {
+      if (this.certainDays.length > 0) {
+        return new Date(Math.min(...this.certainDays)).getFullYear()
+      }
+      return new Date().getFullYear()
+    },
+    computedLeftMonth() {
+      if (this.certainDays.length > 0) {
+        return new Date(Math.min(...this.certainDays)).getMonth()
+      }
+      return new Date().getMonth()
+    },
+    computedRightYear() {
+      if (this.certainDays.length === 2) {
+        if (this.isSameYearMonth()) {
+          const leftDate = new Date(Math.min(...this.certainDays))
+          return leftDate.getMonth() === 11 ? leftDate.getFullYear() + 1 : leftDate.getFullYear()
+        }
+        return new Date(Math.max(...this.certainDays)).getFullYear()
+      }
+      return new Date().getMonth() === 11 ? new Date().getFullYear() + 1 : new Date().getFullYear()
+    },
+    computedRightMonth() {
+      if (this.certainDays.length === 2) {
+        if (this.isSameYearMonth()) {
+          const leftDate = new Date(Math.min(...this.certainDays))
+          return leftDate.getMonth() === 11 ? 0 : leftDate.getMonth() + 1
+        }
+        return new Date(Math.max(...this.certainDays)).getMonth()
+      }
+      return new Date().getMonth() === 11 ? 0 : new Date().getMonth() + 1
+    },
     onToday() {
       this.certainDays = [moment().startOf('day').valueOf(), moment().startOf('day').valueOf()];
     },
@@ -250,6 +274,10 @@ export default {
           start: Math.min(...val),
           end: Math.max(...val)
         })
+        this.leftYear = this.computedLeftYear()
+        this.leftMonth = this.computedLeftMonth()
+        this.rightYear = this.computedRightYear()
+        this.rightMonth = this.computedRightMonth()
       }
     }
   }
@@ -270,6 +298,24 @@ export default {
   cursor: pointer;
   font-size: 14px;
   position: absolute;
+  .picker-input {
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 280px;
+    .start-time {
+      font-family: "Exo", sans-serif;
+      color: #212121;
+    }
+    .end-time {
+      font-family: "Exo", sans-serif;
+      color: #212121;
+    }
+  }
 }
 
 .panelIn-enter {
