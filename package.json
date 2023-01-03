@@ -1,7 +1,7 @@
 {
-  "name": "date-range-picker",
+  "name": "@pluzchat/date-range-picker",
   "description": "a simple range datepicker developed by vue",
-  "version": "1.0.9",
+  "version": "1.0.15",
   "author": "Tuantk2",
   "license": "MIT",
   "private": false,
@@ -11,6 +11,8 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^1.2.2",
+    "moment": "^2.29.4",
     "node-sass": "^7.0.1",
     "vue": "^2.6.14"
   },

@@ -253,12 +253,14 @@
         position: relative;
         display: flex;
         gap: 12px;
+        align-items: center;
         .year {
           display: flex;
           cursor: pointer;
         }
         .month {
           cursor: pointer;
+          display: flex;
         }
       }
     }

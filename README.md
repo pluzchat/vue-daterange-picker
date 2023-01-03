@@ -5,21 +5,21 @@
 # Installation
 
 ```bash
-npm install --save vue-easy-range-date-picker
+npm install --save date-range-picker
 ```
 
 # Usage
 ```js
 <template>
-  <RangeDatePicker v-model="dates"/>
+  <date-range-picker v-model="dates"/>
 </template>
 
 <script>
-import RangeDatePicker from 'vue-easy-range-date-picker';
+import DateRangePicker from 'date-range-picker';
 
 export default {
   components: {
-    RangeDatePicker,
+    DateRangePicker,
   },
   data() {
     return {
@@ -47,10 +47,10 @@ export default {
 | colorSelected(3)     | String       | no       | '#34495e'   |
 | colorActive(3)       | String       | no       | '#41b883'   |
 
-(1) v-model: Binding an object which contains start timestamp and end timestamp: 
+(1) v-model: Binding an object which contains start timestamp and end timestamp:
 ```js
 // example
-dates: { 
+dates: {
   start: 1573052400000,
   end: 1574434800000
 }

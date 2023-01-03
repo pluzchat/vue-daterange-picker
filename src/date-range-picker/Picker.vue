@@ -1,5 +1,5 @@
 <template>
-  <div class="picker-container" v-click-outside="closePicker">
+  <div class="picker-container">
     <div @click="showPicker">
       <slot name="input" :start="value.start" :end="value.end">
         <div class="picker-input">
@@ -67,7 +67,7 @@ export default {
     },
     language: {
       type: String,
-      default: "zh"
+      default: "vi"
     },
   },
   created() {
@@ -78,6 +78,7 @@ export default {
     this.leftMonth = this.computedLeftMonth()
     this.rightYear = this.computedRightYear()
     this.rightMonth = this.computedRightMonth()
+    this.hoverDay = this.computedHoverDay()
   },
   data() {
     return {
@@ -85,6 +86,7 @@ export default {
       leftMonth: null,
       rightYear: null,
       rightMonth: null,
+      hoverDay: null,
       certainDays: null,
       show: false,
     }
@@ -135,10 +137,6 @@ export default {
       } else {
         return false
       }
-    },
-    hoverDay() {
-      if (this.certainDays.length === 2 && (Math.min(...this.certainDays) < Math.max(...this.certainDays))) return this.formatDayToMidnight(this.value.end)
-      return null
     },
     startDate() {
       return moment(this.value.start).format("DD/MM/YYYY")
@@ -253,6 +251,10 @@ export default {
       }
       return new Date().getMonth() === 11 ? 0 : new Date().getMonth() + 1
     },
+    computedHoverDay() {
+      if (this.certainDays.length === 2 && (Math.min(...this.certainDays) < Math.max(...this.certainDays))) return this.formatDayToMidnight(Math.max(...this.certainDays))
+      return null
+    },
     onToday() {
       this.certainDays = [moment().startOf('day').valueOf(), moment().startOf('day').valueOf()];
     },
@@ -278,6 +280,7 @@ export default {
         this.leftMonth = this.computedLeftMonth()
         this.rightYear = this.computedRightYear()
         this.rightMonth = this.computedRightMonth()
+        this.hoverDay = this.computedHoverDay()
       }
     }
   }
@@ -298,6 +301,7 @@ export default {
   cursor: pointer;
   font-size: 14px;
   position: absolute;
+  z-index: 9999;
   .picker-input {
     border: 1px solid #E0E0E0;
     border-radius: 4px;
@@ -306,6 +310,7 @@ export default {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    height: 38px;
     width: 280px;
     .start-time {
       font-family: "Exo", sans-serif;
