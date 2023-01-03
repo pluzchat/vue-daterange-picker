@@ -1,7 +1,8 @@
 <template>
   <div class="picker-container">
+    {{certainDays}}
     <div @click="showPicker">
-      <slot name="input">
+      <slot name="input" :start="value.start" :end="value.end">
         <div>{{ value.start }} - {{ value.end }}</div>
       </slot>
     </div>
@@ -66,12 +67,7 @@ export default {
   },
   data() {
     return {
-      leftYear: this.initLeftYear(),
-      leftMonth: this.initLeftMonth(),
-      rightYear: this.initRightYear(),
-      rightMonth: this.initRightMonth(),
-      certainDays: this.initCertainDays(),
-      hoverDay: this.initHoverDay(),
+      certainDays: null,
       show: false,
     }
   },
@@ -122,6 +118,42 @@ export default {
         return false
       }
     },
+    leftYear() {
+      if (this.certainDays.length > 0) {
+        return new Date(Math.min(...this.certainDays)).getFullYear()
+      }
+      return new Date().getFullYear()
+    },
+    leftMonth() {
+      if (this.certainDays.length > 0) {
+        return new Date(Math.min(...this.certainDays)).getMonth()
+      }
+      return new Date().getMonth()
+    },
+    rightYear() {
+      if (this.certainDays.length === 2) {
+        if (this.isSameYearMonth()) {
+          const leftDate = new Date(Math.min(...this.certainDays))
+          return leftDate.getMonth() === 11 ? leftDate.getFullYear() + 1 : leftDate.getFullYear()
+        }
+        return new Date(Math.max(...this.certainDays)).getFullYear()
+      }
+      return new Date().getMonth() === 11 ? new Date().getFullYear() + 1 : new Date().getFullYear()
+    },
+    rightMonth() {
+      if (this.certainDays.length === 2) {
+        if (this.isSameYearMonth()) {
+          const leftDate = new Date(Math.min(...this.certainDays))
+          return leftDate.getMonth() === 11 ? 0 : leftDate.getMonth() + 1
+        }
+        return new Date(Math.max(...this.certainDays)).getMonth()
+      }
+      return new Date().getMonth() === 11 ? 0 : new Date().getMonth() + 1
+    },
+    hoverDay() {
+      if (this.certainDays.length === 2 && (Math.min(...this.certainDays) < Math.max(...this.certainDays))) return this.formatDayToMidnight(this.value.end)
+      return null
+    },
   },
   methods: {
     closePicker() {
@@ -130,43 +162,11 @@ export default {
     showPicker() {
       this.show = true
     },
-    initLeftYear() {
-      if (this.value.start) {
-        return new Date(this.value.start).getFullYear()
-      }
-      return new Date().getFullYear()
-    },
-    initLeftMonth() {
-      if (this.value.start) {
-        return new Date(this.value.start).getMonth()
-      }
-      return new Date().getMonth()
-    },
-    initRightYear() {
-      if (this.value.start && this.value.end) {
-        if (this.isSameYearMonth()) {
-          const leftDate = new Date(this.value.start)
-          return leftDate.getMonth() === 11 ? leftDate.getFullYear() + 1 : leftDate.getFullYear()
-        }
-        return new Date(this.value.end).getFullYear()
-      }
-      return new Date().getMonth() === 11 ? new Date().getFullYear() + 1 : new Date().getFullYear()
-    },
-    initRightMonth() {
-      if (this.value.start && this.value.end) {
-        if (this.isSameYearMonth()) {
-          const leftDate = new Date(this.value.start)
-          return leftDate.getMonth() === 11 ? 0 : leftDate.getMonth() + 1
-        }
-        return new Date(this.value.end).getMonth()
-      }
-      return new Date().getMonth() === 11 ? 0 : new Date().getMonth() + 1
-    },
     isSameYearMonth() {
-      const leftYear = new Date(this.value.start).getFullYear()
-      const leftMonth = new Date(this.value.start).getMonth()
-      const rightYear = new Date(this.value.end).getFullYear()
-      const rightMonth = new Date(this.value.end).getMonth()
+      const leftYear = new Date(Math.min(...this.certainDays)).getFullYear()
+      const leftMonth = new Date(Math.min(...this.certainDays)).getMonth()
+      const rightYear = new Date(Math.max(...this.certainDays)).getFullYear()
+      const rightMonth = new Date(Math.max(...this.certainDays)).getMonth()
 
       return leftYear === rightYear && leftMonth === rightMonth
     },
@@ -184,10 +184,6 @@ export default {
       date.setSeconds(0)
       date.setMilliseconds(0)
       return Date.parse(date)
-    },
-    initHoverDay() {
-      if (this.value.start && this.value.end && (this.value.start < this.value.end)) return this.formatDayToMidnight(this.value.end)
-      return null
     },
     leftNextYear() {
       this.leftYear += 1
@@ -234,16 +230,16 @@ export default {
       }
     },
     onToday() {
-      this.certainDays = [moment().startOf('day').valueOf(), moment().startOf('day').valueOf()]
+      this.certainDays = [moment().startOf('day').valueOf(), moment().startOf('day').valueOf()];
     },
     onYesterday() {
-      this.certainDays = [moment().subtract(1,'days').startOf('day').valueOf(), moment().subtract(1,'days').startOf('day').valueOf()]
+      this.certainDays = [moment().subtract(1, 'days').startOf('day').valueOf(), moment().subtract(1,'days').startOf('day').valueOf()]
     },
     on7DaysAgo() {
       this.certainDays = [moment().subtract(7,'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
     },
     on30DaysAgo() {
-      this.certainDays = [moment().subtract(7,'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
+      this.certainDays = [moment().subtract(30,'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
     },
   },
   watch: {

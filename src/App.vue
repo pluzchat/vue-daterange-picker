@@ -22,7 +22,7 @@ export default {
     return {
       msg: 'vue-daterange-picker',
       dates: {
-        // start: moment().subtract(30,'days').startOf('day').valueOf(), end: moment().startOf('day').valueOf()
+        // start: moment().subtract(30,'days').startOf('day').valueOf(), end: moment().subtract(1, 'days').startOf('day').valueOf()
       }
     }
   },
