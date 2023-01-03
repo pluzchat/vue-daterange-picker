@@ -4,7 +4,9 @@
     <div style="width: 200px">
       <date-range-picker
         language="vi"
-        v-model="dates"></date-range-picker>
+        v-model="dates"
+      >
+      </date-range-picker>
     </div>
   </div>
 </template>
@@ -12,6 +14,7 @@
 <script>
 import { parseTime } from './util.js'
 import DateRangePicker from "./date-range-picker/Picker";
+import moment from "moment"
 
 export default {
   name: 'app',
@@ -19,6 +22,7 @@ export default {
     return {
       msg: 'vue-daterange-picker',
       dates: {
+        // start: moment().subtract(30,'days').startOf('day').valueOf(), end: moment().startOf('day').valueOf()
       }
     }
   },
@@ -29,7 +33,7 @@ export default {
     },
     showPicker() {
       this.show = true
-    }
+    },
   },
   components: {
     DateRangePicker,

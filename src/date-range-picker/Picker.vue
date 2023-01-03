@@ -1,11 +1,11 @@
 <template>
-  <div class="picker-container" v-click-outside="closePicker">
+  <div class="picker-container">
     <div @click="showPicker">
       <slot name="input">
         <div>{{ value.start }} - {{ value.end }}</div>
       </slot>
     </div>
-    <transition name="panelIn">
+    <transition name="panelIn" v-click-outside="closePicker">
       <div class="picker" v-show="show">
         <div class="dates-wrapper">
           <date
@@ -35,6 +35,12 @@
             @prevMonth="rightPrevMonth"
             @nextMonth="rightNextMonth"></date>
         </div>
+        <div class="quick-time">
+          <div class="quick-time-btn" v-on:click="onToday">Hôm nay</div>
+          <div class="quick-time-btn" v-on:click="onYesterday">Hôm qua</div>
+          <div class="quick-time-btn" v-on:click="on7DaysAgo">7 ngày trước</div>
+          <div class="quick-time-btn" v-on:click="on30DaysAgo">30 ngày trước</div>
+        </div>
       </div>
     </transition>
   </div>
@@ -42,6 +48,7 @@
 
 <script>
 import date from './Date'
+import moment from "moment";
 export default {
   name: "DateRangePicker",
   components: {
@@ -114,7 +121,7 @@ export default {
       } else {
         return false
       }
-    }
+    },
   },
   methods: {
     closePicker() {
@@ -225,11 +232,22 @@ export default {
       } else {
         this.rightMonth -= 1
       }
-    }
+    },
+    onToday() {
+      this.certainDays = [moment().startOf('day').valueOf(), moment().startOf('day').valueOf()]
+    },
+    onYesterday() {
+      this.certainDays = [moment().subtract(1,'days').startOf('day').valueOf(), moment().subtract(1,'days').startOf('day').valueOf()]
+    },
+    on7DaysAgo() {
+      this.certainDays = [moment().subtract(7,'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
+    },
+    on30DaysAgo() {
+      this.certainDays = [moment().subtract(7,'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
+    },
   },
   watch: {
     certainDays(val) {
-      //TODO convert end time
       if (val.length === 2) {
         this.closePicker()
         this.$emit('input', {
@@ -245,9 +263,9 @@ export default {
 <style lang="scss" scoped>
 @media (max-width: 540px) {
   .picker {
+    max-width: 320px;
     .dates-wrapper {
       flex-wrap: wrap;
-      max-width: 320px;
     }
   }
 }
@@ -276,7 +294,18 @@ export default {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   margin: 0 auto;
-
+  .quick-time {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px 20px;
+    .quick-time-btn {
+      background-color: #F5F5F5;
+      cursor: pointer;
+      padding: 4px 8px;
+      color: #424242;
+      border-radius: 4px;
+    }
+  }
   .dates-wrapper {
     display: flex;
     position: relative;

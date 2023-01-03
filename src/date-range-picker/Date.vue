@@ -8,6 +8,7 @@
             @click="prevYear" >
             <i class="ri-skip-back-mini-fill" style="font-size: 20px; color: #9E9E9E"></i>
           </div>
+          <div v-else style="flex-grow: 1"></div>
           <div class="prev-month month"
             v-if="canPrevMonth"
             @click="prevMonth">
@@ -29,6 +30,7 @@
             @click="nextMonth">
             <i class="ri-speed-mini-fill" style="font-size: 20px; color: #9E9E9E"></i>
           </div>
+          <div v-else style="flex-grow: 1"></div>
           <div class="next-year year"
             v-if="canNextYear"
             @click="nextYear" >
@@ -231,7 +233,7 @@
       margin: 0 auto;
     }
     .days {
-      padding-bottom: 32px;
+      padding-bottom: 8px;
     }
     .head {
       padding-bottom: 20px;
