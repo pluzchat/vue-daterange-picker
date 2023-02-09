@@ -301,7 +301,7 @@ export default {
   cursor: pointer;
   font-size: 14px;
   position: absolute;
-  z-index: 9999;
+  z-index: 2;
   .picker-input {
     border: 1px solid #E0E0E0;
     border-radius: 4px;
