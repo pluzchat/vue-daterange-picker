@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <h1>{{ msg }}</h1>
+    <h1>{{ dates }}</h1>
     <div style="width: 200px">
       <date-range-picker
         language="vi"
         v-model="dates"
+        :max-date="new Date()"
+        :step-month="1"
       >
       </date-range-picker>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="day"
-    :class="{'invalid': !item.valid, 'today': item.today, 'active': active, selected: selected, 'end': end, 'start': start}"
+    :class="{'invalid': !item.valid || !validRange, 'today': item.today, 'active': active, 'selected': selected, 'end': end, 'start': start}"
     @click="toggleDay"
     @mouseover="changeHoverDay">
       <div class="wrapper">
@@ -11,6 +11,8 @@
   </div>
 </template>
 <script>
+  import moment from "moment";
+
   export default {
     props: {
       item: {
@@ -33,7 +35,7 @@
     }),
     methods: {
       toggleDay() {
-        if (this.item.valid) {
+        if (this.item.valid && this.validRange) {
           this.clicked = !this.clicked
           if (this.clicked || this.selected || this.active) {
             if (this.$parent.$parent.certainDays.length === 2) {
@@ -47,7 +49,7 @@
         }
       },
       changeHoverDay() {
-        if (this.canHover && this.item.valid && !this.selected) {
+        if (this.canHover && this.item.valid && !this.selected && this.validRange) {
           this.$parent.$parent.hoverDay = this.item.stamp
         }
       }
@@ -60,26 +62,34 @@
       },
       start() {
         if (this.hoverDay && this.item.valid) {
-          const certain = this.certainDays[0]
+          const certain = Math.min(this.certainDays[0], this.certainDays[1])
           const min = Math.min(certain, this.hoverDay)
           return this.item.stamp === min
         }
       },
       end() {
         if (this.hoverDay && this.item.valid) {
-          const certain = this.certainDays[0]
+          const certain = Math.min(this.certainDays[0], this.certainDays[1])
           const max = Math.max(certain, this.hoverDay)
           return this.item.stamp === max
         }
       },
       active() {
         if (this.hoverDay && this.item.valid) {
-          const certain = this.certainDays[0]
+          let certain = this.certainDays[0]
+          if (this.certainDays.length === 2) {
+            certain = Math.min(this.certainDays[0], this.certainDays[1])
+          }
           const min = Math.min(certain, this.hoverDay)
           const max = Math.max(certain, this.hoverDay)
           return this.item.stamp <= max && this.item.stamp >= min
         }
       },
+      validRange() {
+        if (this.$parent.$parent.stepMonth && this.certainDays.length === 1)
+          return Math.abs(moment(this.certainDays[0]).diff(moment(this.item.stamp), "month")) < this.$parent.$parent.stepMonth
+        return true
+      }
     }
   }
 </script>

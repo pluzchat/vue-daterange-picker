@@ -15,6 +15,8 @@
       <div class="picker" v-show="show">
         <div class="dates-wrapper">
           <date
+            :min-date="minDate"
+            :max-date="maxDate"
             :year="leftYear"
             :month="leftMonth"
             :canNextMonth="canNextMonth"
@@ -28,6 +30,8 @@
             @prevMonth="leftPrevMonth"
             @nextMonth="leftNextMonth"></date>
           <date
+            :min-date="minDate"
+            :max-date="maxDate"
             :year="rightYear"
             :month="rightMonth"
             :canPrevMonth="canPrevMonth"
@@ -36,6 +40,8 @@
             :certainDays="certainDays"
             :hoverDay="hoverDay"
             :language="language"
+            :can-next-year="rightDateCanNextYear"
+            :can-next-month="rightDateCanNextMonth"
             @prevYear="rightPrevYear"
             @nextYear="rightNextYear"
             @prevMonth="rightPrevMonth"
@@ -69,6 +75,18 @@ export default {
       type: String,
       default: "vi"
     },
+    minDate: {
+      type: Date,
+      default: null
+    },
+    maxDate: {
+      type: Date,
+      default: null
+    },
+    stepMonth: {
+      type: Number,
+      default: null
+    }
   },
   created() {
     this.certainDays = this.initCertainDays()
@@ -143,6 +161,12 @@ export default {
     },
     endDate() {
       return moment(this.value.end).format("DD/MM/YYYY")
+    },
+    rightDateCanNextYear() {
+      return !this.maxDate || this.rightYear < moment(this.maxDate).year()
+    },
+    rightDateCanNextMonth() {
+      return !this.maxDate || this.rightMonth < moment(this.maxDate).month()
     }
   },
   methods: {

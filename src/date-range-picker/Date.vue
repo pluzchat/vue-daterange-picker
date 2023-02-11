@@ -99,6 +99,14 @@
       language: {
         type: String
       },
+      minDate: {
+        type: Date,
+        default: null
+      },
+      maxDate: {
+        type: Date,
+        default: null
+      },
     },
     data: () => ({
       days: [],
@@ -162,10 +170,11 @@
         const days = []
         for (let i = 0; i < count; i++) {
           const date = new Date(vm.year, vm.month, i + 1)
+          const valid = (!this.maxDate || date <= this.maxDate) && (!this.minDate || date >= this.minDate)
           const day = {
             stamp: +date,
             day: i + 1,
-            valid: true,
+            valid: valid,
             today: vm.isToday(date)
           }
           days.push(day)
