@@ -61,6 +61,7 @@
 <script>
 import date from './Date'
 import moment from "moment";
+
 export default {
   name: "DateRangePicker",
   components: {
@@ -166,7 +167,7 @@ export default {
       return !this.maxDate || this.rightYear < moment(this.maxDate).year()
     },
     rightDateCanNextMonth() {
-      return !this.maxDate || this.rightMonth < moment(this.maxDate).month()
+      return !this.maxDate || this.rightMonth < moment(this.maxDate).month() && this.rightYear === moment(this.maxDate).year() || this.rightYear !== moment(this.maxDate).year()
     }
   },
   methods: {
@@ -283,13 +284,13 @@ export default {
       this.certainDays = [moment().startOf('day').valueOf(), moment().startOf('day').valueOf()];
     },
     onYesterday() {
-      this.certainDays = [moment().subtract(1, 'days').startOf('day').valueOf(), moment().subtract(1,'days').startOf('day').valueOf()]
+      this.certainDays = [moment().subtract(1, 'days').startOf('day').valueOf(), moment().subtract(1, 'days').startOf('day').valueOf()]
     },
     on7DaysAgo() {
-      this.certainDays = [moment().subtract(7,'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
+      this.certainDays = [moment().subtract(7, 'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
     },
     on30DaysAgo() {
-      this.certainDays = [moment().subtract(30,'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
+      this.certainDays = [moment().subtract(30, 'days').startOf('day').valueOf(), moment().startOf('day').valueOf()]
     },
   },
   watch: {
@@ -315,6 +316,7 @@ export default {
 @media (max-width: 540px) {
   .picker {
     max-width: 320px;
+
     .dates-wrapper {
       flex-wrap: wrap;
     }
@@ -326,6 +328,7 @@ export default {
   font-size: 14px;
   position: absolute;
   z-index: 2;
+
   .picker-input {
     border: 1px solid #E0E0E0;
     border-radius: 4px;
@@ -336,10 +339,12 @@ export default {
     gap: 8px;
     height: 38px;
     width: 280px;
+
     .start-time {
       font-family: "Exo", sans-serif;
       color: #212121;
     }
+
     .end-time {
       font-family: "Exo", sans-serif;
       color: #212121;
@@ -365,10 +370,12 @@ export default {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   margin: 0 auto;
+
   .quick-time {
     display: flex;
     gap: 8px;
     padding: 0 20px 20px;
+
     .quick-time-btn {
       background-color: #F5F5F5;
       cursor: pointer;
@@ -377,6 +384,7 @@ export default {
       border-radius: 4px;
     }
   }
+
   .dates-wrapper {
     display: flex;
     position: relative;
