@@ -4,10 +4,10 @@
       <slot name="input" :start="value.start" :end="value.end">
         <div class="picker-input">
           <span class="start-time">{{ startDate }}</span>
-          <i class="ri-arrow-right-fill" style="font-size: 16px; color: #9E9E9E"></i>
+          <i class="ri-arrow-right-fill" style="font-size: 1rem; color: #9E9E9E"></i>
           <span class="end-time">{{ endDate }}</span>
           <div style="flex-grow: 1"></div>
-          <i class="ri-calendar-line" style="font-size: 20px; color: #9E9E9E"></i>
+          <i class="ri-calendar-line" style="font-size: 1.25rem; color: #9E9E9E"></i>
         </div>
       </slot>
     </div>
