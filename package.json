@@ -1,7 +1,7 @@
 {
   "name": "@pluzchat/date-range-picker",
   "description": "a simple range datepicker developed by vue",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "author": "Tuantk2",
   "license": "MIT",
   "private": false,

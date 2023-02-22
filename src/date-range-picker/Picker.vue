@@ -338,7 +338,7 @@ export default {
     justify-content: center;
     gap: 8px;
     height: 38px;
-    width: 280px;
+    width: 236px;
 
     .start-time {
       font-family: "Exo", sans-serif;
@@ -382,6 +382,10 @@ export default {
       padding: 4px 8px;
       color: #424242;
       border-radius: 4px;
+    }
+    .quick-time-btn:hover {
+      color: #0052CC;
+      background-color: #E3F2FD;
     }
   }
 
