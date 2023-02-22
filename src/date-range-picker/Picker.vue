@@ -325,7 +325,7 @@ export default {
 
 .picker-container {
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.875rem;
   position: absolute;
   z-index: 2;
 

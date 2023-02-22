@@ -252,7 +252,7 @@
       .text {
         flex-grow: 1;
         text-align: center;
-        font-size: 14px;
+        font-size: 0.875rem;
         font-weight: bold;
       }
       .side {
@@ -282,7 +282,7 @@
         font-weight: bold;
         width: 40px;
         color: #222;
-        font-size: 14px;
+        font-size: 0.875rem;
       }
     }
   }

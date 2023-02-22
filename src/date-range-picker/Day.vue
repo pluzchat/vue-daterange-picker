@@ -100,7 +100,7 @@
     display: inline-block;
     width: 40px;
     text-align: center;
-    font-size: 14px;
+    font-size: 0.875rem;
     box-sizing: border-box;
     .wrapper {
       padding: 8px 0;
