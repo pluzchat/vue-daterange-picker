@@ -338,7 +338,7 @@ export default {
     justify-content: center;
     gap: 8px;
     height: 38px;
-    width: 236px;
+    max-width: 255px;
 
     .start-time {
       font-family: "Exo", sans-serif;
